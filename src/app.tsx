@@ -1,14 +1,15 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router'
 
+import AuthLayout from '@/components/auth-layout'
 import AuthProvider from '@/components/auth-provider'
+import GuestRoute from '@/components/guest-route'
 import Layout from '@/components/layout'
+import ProtectedRoute from '@/components/protected-route'
 
 import HomePage from '@/pages/home'
-import GuestRoute from './components/guest-route'
-import AuthLayout from './components/auth-layout'
-import LoginPage from './pages/login'
-import RegisterPage from './pages/register'
-import ProtectedRoute from './components/protected-route'
+import LoginPage from '@/pages/login'
+import ProfilePage from '@/pages/profile'
+import RegisterPage from '@/pages/register'
 
 export default function App() {
 	return (
@@ -25,6 +26,7 @@ export default function App() {
 					<Route element={<ProtectedRoute />}>
 						<Route element={<Layout />}>
 							<Route index element={<HomePage />} />
+							<Route path="profile" element={<ProfilePage />} />
 
 							<Route path="*" element={<Navigate to="/" replace />} />
 						</Route>
