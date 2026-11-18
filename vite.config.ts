@@ -10,6 +10,9 @@ export default defineConfig({
 		tailwindcss(),
 		VitePWA({
 			registerType: 'autoUpdate',
+			devOptions: {
+				enabled: true,
+			},
 			manifest: {
 				name: 'Arena',
 				short_name: 'Arena',
@@ -18,6 +21,9 @@ export default defineConfig({
 				display: 'standalone',
 				background_color: '#0e1116',
 				theme_color: '#0e1116',
+				start_url: '/',
+				scope: '/',
+				id: '/',
 				icons: [
 					{
 						src: '/pwa-192x192.png',
@@ -39,6 +45,13 @@ export default defineConfig({
 			},
 		}),
 	],
+	server: {
+		host: true,
+		watch: {
+			usePolling: true,
+			interval: 300,
+		},
+	},
 	resolve: {
 		alias: {
 			'@': fileURLToPath(new URL('./src', import.meta.url)),

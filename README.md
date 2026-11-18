@@ -83,6 +83,7 @@
 
    ```
    VITE_SUPABASE_URL=http://127.0.0.1:54321
+   VITE_SUPABASE_URL=http://192.168.1.39:54321
    VITE_SUPABASE_PUBLISHABLE_KEY=<publishable or anon key>
    ```
 

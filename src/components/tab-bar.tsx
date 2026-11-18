@@ -24,7 +24,7 @@ const TABS: Tab[] = [
 
 export default function TabBar() {
 	return (
-		<nav className="pb-safe border-slate bg-graphite shrink-0 border-t p-2.5">
+		<nav className="border-slate bg-graphite shrink-0 border-t p-2.5 pb-[max(0.625rem,env(safe-area-inset-bottom))]">
 			<ul className="grid grid-cols-5">
 				{TABS.map(({ to, icon: Icon, isPrimary }) => (
 					<li key={to} className="flex">
