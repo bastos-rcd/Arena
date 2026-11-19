@@ -7,9 +7,14 @@ import ProtectedRoute from '@/features/auth/components/protected-route'
 import PublicRoute from '@/features/auth/components/public-route'
 
 import LoginPage from '@/features/auth/pages/login'
+import ForgotPasswordPage from '@/features/auth/pages/forgot-password'
 import RegisterPage from '@/features/auth/pages/register'
+import ResetPasswordPage from '@/features/auth/pages/reset-password'
+
 import HomePage from '@/features/home/pages/home'
+
 import ProfilePage from '@/features/profile/pages/profile'
+
 import SettingsPage from '@/features/settings/pages/settings'
 
 export default function AppRoutes() {
@@ -18,8 +23,13 @@ export default function AppRoutes() {
 			<Route element={<PublicRoute />}>
 				<Route element={<AuthLayout />}>
 					<Route path="login" element={<LoginPage />} />
+					<Route path="forgot-password" element={<ForgotPasswordPage />} />
 					<Route path="register" element={<RegisterPage />} />
 				</Route>
+			</Route>
+
+			<Route element={<AuthLayout />}>
+				<Route path="reset-password" element={<ResetPasswordPage />} />
 			</Route>
 
 			<Route element={<ProtectedRoute />}>

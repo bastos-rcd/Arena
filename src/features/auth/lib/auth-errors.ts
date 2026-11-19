@@ -16,6 +16,8 @@ export function getAuthErrorMessage(error: AuthError) {
 			return 'Trop de tentatives, réessaie dans quelques minutes'
 		case 'unexpected_failure':
 			return 'Inscription impossible, vérifie ton pseudo et réessaie'
+		case 'same_password':
+			return "Choisis un mot de passe différent de l'actuel"
 		default:
 			return 'Une erreur est survenue, réessaie'
 	}

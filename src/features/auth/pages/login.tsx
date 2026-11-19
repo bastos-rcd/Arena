@@ -1,7 +1,8 @@
 import { useState, type SubmitEvent } from 'react'
-import { Link } from 'react-router'
 
+import Button from '@/components/ui/button'
 import Field from '@/components/ui/field'
+import Link from '@/components/ui/link'
 
 import { getAuthErrorMessage } from '@/features/auth/lib/auth-errors'
 
@@ -71,26 +72,23 @@ export default function LoginPage() {
 					error={errors.password}
 				/>
 
+				<Link to="/forgot-password" variant="muted">
+					Mot de passe oublié ?
+				</Link>
+
 				{errors.form && (
 					<p role="alert" className="text-error text-center text-sm">
 						{errors.form}
 					</p>
 				)}
 
-				<button
-					type="submit"
-					disabled={submitting}
-					className="bg-volt text-ink rounded-xl p-2.5 font-semibold transition-transform active:scale-95 disabled:opacity-50"
-				>
+				<Button type="submit" disabled={submitting}>
 					{submitting ? 'Connexion…' : 'Se connecter'}
-				</button>
+				</Button>
 			</form>
 
 			<p className="text-mist text-center text-sm">
-				Pas encore de compte ?{' '}
-				<Link to="/register" className="text-volt font-medium">
-					Créer un compte
-				</Link>
+				Pas encore de compte ? <Link to="/register">Créer un compte</Link>
 			</p>
 		</>
 	)

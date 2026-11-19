@@ -1,24 +1,20 @@
 import { Camera, Settings } from 'lucide-react'
-import { useState, type ChangeEvent, type SubmitEvent } from 'react'
-import { Link } from 'react-router'
+import { useState, type ChangeEvent } from 'react'
 
-import Field from '@/components/ui/field'
+import Link from '@/components/ui/link'
 
 import Avatar from '@/features/profile/components/avatar'
+import ChangeName from '@/features/profile/components/change-name'
+import ChangePassword from '@/features/profile/components/change-password'
 
 import { removeAvatars, uploadAvatar } from '@/features/profile/lib/avatar'
 import { useProfile } from '@/features/profile/lib/use-profile'
-
-import { validateDisplayName } from '@/lib/validation'
 
 export default function ProfilePage() {
 	const { profile, loading, updateProfile } = useProfile()
 
 	const [uploading, setUploading] = useState(false)
 	const [avatarError, setAvatarError] = useState<string>()
-	const [nameError, setNameError] = useState<string>()
-	const [saving, setSaving] = useState(false)
-	const [saved, setSaved] = useState(false)
 
 	if (loading) return null
 
@@ -68,34 +64,13 @@ export default function ProfilePage() {
 		setUploading(false)
 	}
 
-	const handleNameSubmit = async (event: SubmitEvent<HTMLFormElement>) => {
-		event.preventDefault()
-
-		const displayName = String(
-			new FormData(event.currentTarget).get('displayName'),
-		).trim()
-
-		const validationError = validateDisplayName(displayName)
-		setSaved(false)
-		setNameError(validationError)
-
-		if (validationError || displayName === profile.display_name) return
-
-		setSaving(true)
-		const { error } = await updateProfile({ display_name: displayName })
-
-		if (error) setNameError('Impossible d’enregistrer, réessaie')
-		else setSaved(true)
-
-		setSaving(false)
-	}
-
 	return (
 		<div className="relative mx-auto flex max-w-sm flex-col gap-8">
 			<Link
 				to="/settings"
+				variant="muted"
 				aria-label="Réglages"
-				className="text-mist absolute top-0 right-0 p-1 transition-opacity active:opacity-60"
+				className="absolute top-0 right-0 p-1"
 			>
 				<Settings size={24} />
 			</Link>
@@ -146,36 +121,9 @@ export default function ProfilePage() {
 				)}
 			</header>
 
-			<form
-				key={profile.display_name}
-				onSubmit={handleNameSubmit}
-				noValidate
-				className="flex flex-col gap-4"
-			>
-				<Field
-					label="Nom affiché"
-					name="displayName"
-					defaultValue={profile.display_name}
-					autoComplete="name"
-					maxLength={40}
-					error={nameError}
-					onChange={() => setSaved(false)}
-				/>
+			<ChangeName profile={profile} onSave={updateProfile} />
 
-				<button
-					type="submit"
-					disabled={saving}
-					className="bg-volt text-ink rounded-xl p-2.5 font-semibold transition-transform active:scale-95 disabled:opacity-50"
-				>
-					{saving ? 'Enregistrement…' : 'Enregistrer'}
-				</button>
-
-				{saved && (
-					<p role="status" className="text-success text-center text-sm">
-						Nom enregistré
-					</p>
-				)}
-			</form>
+			<ChangePassword />
 		</div>
 	)
 }

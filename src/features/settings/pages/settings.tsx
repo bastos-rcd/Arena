@@ -1,8 +1,8 @@
 import { ChevronLeft, Plus } from 'lucide-react'
 import { useState } from 'react'
-import { Link } from 'react-router'
 
 import Button from '@/components/ui/button'
+import Link from '@/components/ui/link'
 
 import { useAuth } from '@/features/auth/lib/auth-context'
 import { removeAvatars } from '@/features/profile/lib/avatar'
@@ -55,7 +55,8 @@ export default function SettingsPage() {
 		<div className="mx-auto flex max-w-sm flex-col gap-8">
 			<Link
 				to="/profile"
-				className="text-mist flex items-center gap-1 self-start text-sm transition-opacity active:opacity-60"
+				variant="muted"
+				className="flex items-center gap-1 self-start"
 			>
 				<ChevronLeft size={16} />
 				Profil

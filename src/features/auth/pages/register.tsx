@@ -1,7 +1,8 @@
 import { useState, type SubmitEvent } from 'react'
-import { Link } from 'react-router'
 
+import Button from '@/components/ui/button'
 import Field from '@/components/ui/field'
+import Link from '@/components/ui/link'
 
 import { getAuthErrorMessage } from '@/features/auth/lib/auth-errors'
 
@@ -149,20 +150,13 @@ export default function RegisterPage() {
 					</p>
 				)}
 
-				<button
-					type="submit"
-					disabled={submitting}
-					className="bg-volt text-ink rounded-xl py-3 font-semibold transition-transform active:scale-95 disabled:opacity-50"
-				>
+				<Button type="submit" disabled={submitting}>
 					{submitting ? 'Création…' : 'Créer mon compte'}
-				</button>
+				</Button>
 			</form>
 
 			<p className="text-mist text-center text-sm">
-				Déjà un compte ?{' '}
-				<Link to="/login" className="text-volt font-medium">
-					Se connecter
-				</Link>
+				Déjà un compte ? <Link to="/login">Se connecter</Link>
 			</p>
 		</>
 	)
