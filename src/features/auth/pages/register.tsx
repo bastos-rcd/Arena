@@ -1,4 +1,5 @@
 import { useState, type SubmitEvent } from 'react'
+import { useLocation } from 'react-router'
 
 import Button from '@/components/ui/button'
 import Field from '@/components/ui/field'
@@ -23,6 +24,8 @@ type Errors = {
 }
 
 export default function RegisterPage() {
+	const location = useLocation()
+
 	const [errors, setErrors] = useState<Errors>({})
 	const [submitting, setSubmitting] = useState(false)
 	const [confirmationSent, setConfirmationSent] = useState(false)
@@ -156,7 +159,10 @@ export default function RegisterPage() {
 			</form>
 
 			<p className="text-mist text-center text-sm">
-				Déjà un compte ? <Link to="/login">Se connecter</Link>
+				Déjà un compte ?{' '}
+				<Link to="/login" state={location.state}>
+					Se connecter
+				</Link>
 			</p>
 		</>
 	)

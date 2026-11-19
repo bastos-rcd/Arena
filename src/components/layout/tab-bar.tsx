@@ -22,7 +22,11 @@ const TABS: Tab[] = [
 	{ to: '/profile', icon: User },
 ]
 
-export default function TabBar() {
+type TabBarProps = {
+	badges?: Record<string, number>
+}
+
+export default function TabBar({ badges = {} }: TabBarProps) {
 	return (
 		<nav className="border-slate bg-graphite shrink-0 border-t p-2.5 pb-[max(0.625rem,env(safe-area-inset-bottom))]">
 			<ul className="grid grid-cols-5">
@@ -46,7 +50,15 @@ export default function TabBar() {
 								}
 							>
 								{({ isActive }) => (
-									<Icon size={24} strokeWidth={isActive ? 2.25 : 1.75} />
+									<span className="relative">
+										<Icon size={24} strokeWidth={isActive ? 2.25 : 1.75} />
+
+										{badges[to] > 0 && (
+											<span className="bg-volt text-ink absolute -top-1.5 -right-2.5 flex min-w-4 items-center justify-center rounded-full px-1 text-[10px] leading-4 font-semibold">
+												{badges[to] > 9 ? '9+' : badges[to]}
+											</span>
+										)}
+									</span>
 								)}
 							</NavLink>
 						)}

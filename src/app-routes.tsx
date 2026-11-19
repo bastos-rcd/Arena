@@ -5,11 +5,14 @@ import AuthLayout from '@/components/layout/auth-layout'
 
 import ProtectedRoute from '@/features/auth/components/protected-route'
 import PublicRoute from '@/features/auth/components/public-route'
-
 import LoginPage from '@/features/auth/pages/login'
 import ForgotPasswordPage from '@/features/auth/pages/forgot-password'
 import RegisterPage from '@/features/auth/pages/register'
 import ResetPasswordPage from '@/features/auth/pages/reset-password'
+
+import FriendshipsProvider from '@/features/friends/components/friendships-provider'
+import FriendsPage from '@/features/friends/pages/friends'
+import UserProfilePage from '@/features/friends/pages/user-profile'
 
 import HomePage from '@/features/home/pages/home'
 
@@ -33,8 +36,16 @@ export default function AppRoutes() {
 			</Route>
 
 			<Route element={<ProtectedRoute />}>
-				<Route element={<AppLayout />}>
+				<Route
+					element={
+						<FriendshipsProvider>
+							<AppLayout />
+						</FriendshipsProvider>
+					}
+				>
 					<Route index element={<HomePage />} />
+					<Route path="friends" element={<FriendsPage />} />
+					<Route path="u/:username" element={<UserProfilePage />} />
 					<Route path="profile" element={<ProfilePage />} />
 					<Route path="settings" element={<SettingsPage />} />
 

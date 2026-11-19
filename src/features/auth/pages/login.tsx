@@ -1,4 +1,5 @@
 import { useState, type SubmitEvent } from 'react'
+import { useLocation } from 'react-router'
 
 import Button from '@/components/ui/button'
 import Field from '@/components/ui/field'
@@ -16,6 +17,8 @@ type Errors = {
 }
 
 export default function LoginPage() {
+	const location = useLocation()
+
 	const [errors, setErrors] = useState<Errors>({})
 	const [submitting, setSubmitting] = useState(false)
 
@@ -88,7 +91,10 @@ export default function LoginPage() {
 			</form>
 
 			<p className="text-mist text-center text-sm">
-				Pas encore de compte ? <Link to="/register">Créer un compte</Link>
+				Pas encore de compte ?{' '}
+				<Link to="/register" state={location.state}>
+					Créer un compte
+				</Link>
 			</p>
 		</>
 	)
