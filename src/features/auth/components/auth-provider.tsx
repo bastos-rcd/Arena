@@ -1,8 +1,8 @@
 import { useEffect, useState, type ReactNode } from 'react'
-
 import type { Session } from '@supabase/supabase-js'
 
-import { AuthContext } from '@/lib/auth/auth-context'
+import { AuthContext } from '@/features/auth/lib/auth-context'
+
 import { supabase } from '@/lib/supabase'
 
 type AuthProviderProps = {

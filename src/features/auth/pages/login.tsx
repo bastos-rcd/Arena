@@ -1,11 +1,12 @@
 import { useState, type SubmitEvent } from 'react'
 import { Link } from 'react-router'
 
-import Field from '@/components/field'
+import Field from '@/components/ui/field'
+
+import { getAuthErrorMessage } from '@/features/auth/lib/auth-errors'
 
 import { supabase } from '@/lib/supabase'
 import { validateEmail } from '@/lib/validation'
-import { getAuthErrorMessage } from '@/lib/auth/auth-errors'
 
 type Errors = {
 	email?: string
@@ -79,7 +80,7 @@ export default function LoginPage() {
 				<button
 					type="submit"
 					disabled={submitting}
-					className="bg-volt text-ink rounded-xl p-2.5 font-semibold transition-transform active:scale-[0.98] disabled:opacity-50"
+					className="bg-volt text-ink rounded-xl p-2.5 font-semibold transition-transform active:scale-95 disabled:opacity-50"
 				>
 					{submitting ? 'Connexion…' : 'Se connecter'}
 				</button>

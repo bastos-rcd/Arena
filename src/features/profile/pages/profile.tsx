@@ -2,11 +2,13 @@ import { Camera, Settings } from 'lucide-react'
 import { useState, type ChangeEvent, type SubmitEvent } from 'react'
 import { Link } from 'react-router'
 
-import Avatar from '@/components/avatar'
-import Field from '@/components/field'
+import Field from '@/components/ui/field'
 
-import { removeAvatars, uploadAvatar } from '@/lib/avatar'
-import { useProfile } from '@/lib/use-profile'
+import Avatar from '@/features/profile/components/avatar'
+
+import { removeAvatars, uploadAvatar } from '@/features/profile/lib/avatar'
+import { useProfile } from '@/features/profile/lib/use-profile'
+
 import { validateDisplayName } from '@/lib/validation'
 
 export default function ProfilePage() {
@@ -163,7 +165,7 @@ export default function ProfilePage() {
 				<button
 					type="submit"
 					disabled={saving}
-					className="bg-volt text-ink rounded-xl p-2.5 font-semibold transition-transform active:scale-[0.98] disabled:opacity-50"
+					className="bg-volt text-ink rounded-xl p-2.5 font-semibold transition-transform active:scale-95 disabled:opacity-50"
 				>
 					{saving ? 'Enregistrement…' : 'Enregistrer'}
 				</button>

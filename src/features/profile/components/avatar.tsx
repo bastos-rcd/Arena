@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { getAvatarUrl } from '@/lib/avatar'
+import { getAvatarUrl } from '@/features/profile/lib/avatar'
 
 type AvatarProps = {
 	path?: string | null

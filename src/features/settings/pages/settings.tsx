@@ -2,11 +2,12 @@ import { ChevronLeft, Plus } from 'lucide-react'
 import { useState } from 'react'
 import { Link } from 'react-router'
 
-import Button from '@/components/button'
+import Button from '@/components/ui/button'
 
-import { removeAvatars } from '@/lib/avatar'
+import { useAuth } from '@/features/auth/lib/auth-context'
+import { removeAvatars } from '@/features/profile/lib/avatar'
+
 import { supabase } from '@/lib/supabase'
-import { useAuth } from '@/lib/auth/auth-context'
 
 type ConnectedApp = {
 	id: string

@@ -7,11 +7,11 @@ type ButtonProps = ComponentProps<'button'> & {
 
 const VARIANTS = {
 	primary:
-		'bg-volt text-ink font-semibold transition-transform active:scale-[0.98]',
+		'bg-volt text-ink font-semibold transition-transform active:scale-95',
 	secondary:
-		'border-slate border font-medium transition-opacity active:opacity-60',
+		'border border-slate font-medium transition-opacity active:opacity-50',
 	danger:
-		'border-error text-error border font-medium transition-opacity active:opacity-60',
+		'border border-error text-error font-medium transition-opacity active:opacity-50',
 }
 
 const SIZES = {

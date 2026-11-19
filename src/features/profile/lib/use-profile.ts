@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useState } from 'react'
 
+import { useAuth } from '@/features/auth/lib/auth-context'
+
 import { supabase } from '@/lib/supabase'
-import { useAuth } from '@/lib/auth/auth-context'
 
 export type Profile = {
 	id: string

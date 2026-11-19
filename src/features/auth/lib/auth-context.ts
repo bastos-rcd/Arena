@@ -1,5 +1,4 @@
 import { createContext, useContext } from 'react'
-
 import type { Session, User } from '@supabase/supabase-js'
 
 export const AuthContext = createContext<{
