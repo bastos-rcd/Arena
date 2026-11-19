@@ -10,6 +10,7 @@ import HomePage from '@/pages/home'
 import LoginPage from '@/pages/login'
 import ProfilePage from '@/pages/profile'
 import RegisterPage from '@/pages/register'
+import SettingsPage from '@/pages/settings'
 
 export default function App() {
 	return (
@@ -27,6 +28,7 @@ export default function App() {
 						<Route element={<Layout />}>
 							<Route index element={<HomePage />} />
 							<Route path="profile" element={<ProfilePage />} />
+							<Route path="settings" element={<SettingsPage />} />
 
 							<Route path="*" element={<Navigate to="/" replace />} />
 						</Route>

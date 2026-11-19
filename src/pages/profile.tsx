@@ -1,17 +1,15 @@
+import { Camera, Settings } from 'lucide-react'
 import { useState, type ChangeEvent, type SubmitEvent } from 'react'
-import { Camera } from 'lucide-react'
+import { Link } from 'react-router'
 
 import Avatar from '@/components/avatar'
 import Field from '@/components/field'
 
 import { removeAvatars, uploadAvatar } from '@/lib/avatar'
 import { useProfile } from '@/lib/use-profile'
-import { supabase } from '@/lib/supabase'
 import { validateDisplayName } from '@/lib/validation'
-import { useAuth } from '@/lib/auth/auth-context'
 
 export default function ProfilePage() {
-	const { user } = useAuth()
 	const { profile, loading, updateProfile } = useProfile()
 
 	const [uploading, setUploading] = useState(false)
@@ -91,7 +89,15 @@ export default function ProfilePage() {
 	}
 
 	return (
-		<div className="mx-auto flex max-w-sm flex-col gap-8">
+		<div className="relative mx-auto flex max-w-sm flex-col gap-8">
+			<Link
+				to="/settings"
+				aria-label="Réglages"
+				className="text-mist absolute top-0 right-0 p-1 transition-opacity active:opacity-60"
+			>
+				<Settings size={24} />
+			</Link>
+
 			<header className="flex flex-col items-center gap-1">
 				<label
 					aria-busy={uploading}
@@ -168,22 +174,6 @@ export default function ProfilePage() {
 					</p>
 				)}
 			</form>
-
-			<div className="bg-graphite border-slate rounded-xl border p-2.5">
-				<p className="text-mist text-sm">Email</p>
-				<p className="break-all">{user?.email}</p>
-			</div>
-
-			<button
-				type="button"
-				onClick={() => {
-					if (!window.confirm('Es-tu sûr de vouloir te déconnecter ?')) return
-					supabase.auth.signOut()
-				}}
-				className="border-error text-error rounded-xl border p-2.5 font-medium transition-opacity active:opacity-60"
-			>
-				Se déconnecter
-			</button>
 		</div>
 	)
 }

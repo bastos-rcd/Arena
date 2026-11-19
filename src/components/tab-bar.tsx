@@ -2,8 +2,8 @@ import {
 	Handshake,
 	House,
 	Plus,
-	Settings,
 	Trophy,
+	User,
 	type LucideIcon,
 } from 'lucide-react'
 import { NavLink } from 'react-router'
@@ -19,7 +19,7 @@ const TABS: Tab[] = [
 	{ to: '/ranking', icon: Trophy },
 	{ to: '/new', icon: Plus, isPrimary: true },
 	{ to: '/friends', icon: Handshake },
-	{ to: '/profile', icon: Settings },
+	{ to: '/profile', icon: User },
 ]
 
 export default function TabBar() {
