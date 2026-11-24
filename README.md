@@ -12,7 +12,7 @@
 
 - **Sober and modern** : few elements, no unnecessary decoration
 - **Dark theme only** : a single theme to maintain, well suited for sports use
-- **One accent** : the Volt color is reserved for what matters (primary action, best time, status)
+- **One accent** : the Volt color is reserved for what matters (primary action, best score, status)
 
 ### Color palette
 
@@ -30,17 +30,17 @@
 
 | Name | Color   | Usage                                     |
 | ---- | ------- | ----------------------------------------- |
-| Volt | #C8F751 | Primary button, best times, status badges |
+| Volt | #C8F751 | Primary button, best score, status badges |
 
 #### Functional
 
-| Name    | Color   | Usage                                        |
-| ------- | ------- | -------------------------------------------- |
-| Gold    | #E8B84A | 1st place                                    |
-| Silver  | #B9C0CC | 2nd place                                    |
-| Bronze  | #C8814F | 3rd place                                    |
-| Success | #3DDC97 | Confirmations (activity validated, etc.)     |
-| Error   | #FF5C5C | Errors (route mismatch, failed import, etc.) |
+| Name    | Color   | Usage         |
+| ------- | ------- | ------------- |
+| Gold    | #E8B84A | 1st place     |
+| Silver  | #B9C0CC | 2nd place     |
+| Bronze  | #C8814F | 3rd place     |
+| Success | #3DDC97 | Confirmations |
+| Error   | #FF5C5C | Errors        |
 
 ### Logo
 
@@ -83,6 +83,7 @@
 
    ```
    VITE_SUPABASE_URL=http://127.0.0.1:54321
+   VITE_SUPABASE_URL=http://192.168.1.39:54321
    VITE_SUPABASE_PUBLISHABLE_KEY=<publishable or anon key>
    ```
 

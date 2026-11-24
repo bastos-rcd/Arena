@@ -1,35 +1,59 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
-  /* Neutrals */
-  --color-ink: #0e1116;
-  --color-graphite: #171b22;
-  --color-slate: #252c37;
-  --color-snow: #f2f4f7;
-  --color-mist: #8b94a3;
+	/* Neutrals */
+	--color-ink: #0e1116;
+	--color-graphite: #171b22;
+	--color-slate: #252c37;
+	--color-snow: #f2f4f7;
+	--color-mist: #8b94a3;
 
-  /* Accent */
-  --color-volt: #c8f751;
+	/* Accent */
+	--color-volt: #c8f751;
 
-  /* Functional */
-  --color-gold: #e8b84a;
-  --color-silver: #b9c0cc;
-  --color-bronze: #c8814f;
-  --color-success: #3ddc97;
-  --color-error: #ff5c5c;
+	/* Functional */
+	--color-gold: #e8b84a;
+	--color-silver: #b9c0cc;
+	--color-bronze: #c8814f;
+	--color-success: #3ddc97;
+	--color-error: #ff5c5c;
 
-  --font-sans: "Inter Variable", system-ui, sans-serif;
+	--font-sans: 'Inter Variable', system-ui, sans-serif;
+}
+
+@utility pt-safe {
+	padding-top: env(safe-area-inset-top);
+}
+
+@utility pb-safe {
+	padding-bottom: env(safe-area-inset-bottom);
 }
 
 @layer base {
-  html,
-  body,
-  #root {
-    height: 100%;
-  }
+	html,
+	body,
+	#root {
+		height: 100%;
+	}
 
-  body {
-    @apply bg-ink text-snow font-sans antialiased;
-    margin: 0;
-  }
+	html {
+		-webkit-text-size-adjust: 100%;
+		overscroll-behavior: none;
+	}
+
+	body {
+		@apply bg-ink text-snow font-sans antialiased select-none;
+		margin: 0;
+		overscroll-behavior: none;
+		touch-action: manipulation;
+		-webkit-tap-highlight-color: transparent;
+		-webkit-touch-callout: none;
+	}
+
+	input,
+	textarea,
+	select {
+		@apply select-text;
+		font-size: 16px;
+	}
 }
