@@ -19,7 +19,7 @@ const ITEMS: Item[] = [
 	{ to: '/ranking', icon: Trophy },
 	{ to: '/create', icon: Plus, primary: true },
 	{ to: '/friends', icon: UserGroup },
-	{ to: '/settings', icon: Settings },
+	{ to: '/profile', icon: Settings },
 ]
 
 export default function NavBar() {

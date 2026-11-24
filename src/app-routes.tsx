@@ -11,6 +11,8 @@ import ResetPasswordPage from '@/features/auth/pages/reset-password'
 
 import HomePage from '@/features/home/pages/home'
 
+import ProfilePage from '@/features/profile/pages/profile'
+
 export default function AppRoutes() {
 	return (
 		<Routes>
@@ -28,6 +30,7 @@ export default function AppRoutes() {
 			<Route element={<ProtectedRoute />}>
 				<Route element={<AppLayout />}>
 					<Route index element={<HomePage />} />
+					<Route path="profile" element={<ProfilePage />} />
 
 					<Route path="*" element={<Navigate to="/" replace />} />
 				</Route>
