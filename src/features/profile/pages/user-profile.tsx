@@ -25,7 +25,7 @@ export default function UserProfilePage() {
 
 	if (!profile) {
 		return (
-			<div className="mx-auto flex max-w-sm flex-col gap-8">
+			<div className="mx-auto flex flex-col gap-8">
 				<Return to="/friends" label="Amis" />
 
 				<p className="text-mist text-center">Utilisateur introuvable</p>
@@ -36,7 +36,7 @@ export default function UserProfilePage() {
 	if (profile.id === user?.id) return <Navigate to="/profile" replace />
 
 	return (
-		<div className="mx-auto flex max-w-sm flex-col gap-8">
+		<div className="mx-auto flex flex-col gap-8">
 			<Return to="/friends" label="Amis" />
 
 			<header className="flex flex-col items-center gap-1">
