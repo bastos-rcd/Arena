@@ -64,6 +64,16 @@ export function getStatusLabel(period: Period, today = getToday()) {
 	return `Terminée le ${formatDate(period.end_date)}`
 }
 
+export function getProgress(
+	{ start_date, end_date }: Period,
+	today = getToday(),
+) {
+	const total = daysBetween(start_date, end_date) + 1
+	const day = Math.min(Math.max(daysBetween(start_date, today) + 1, 1), total)
+
+	return { day, total }
+}
+
 export function isProvisional({ end_date }: Period, today = getToday()) {
 	return daysBetween(end_date, today) === 1
 }

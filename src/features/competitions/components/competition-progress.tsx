@@ -1,8 +1,5 @@
 import type { Competition } from '@/features/competitions/lib/competition'
-import {
-	daysBetween,
-	getToday,
-} from '@/features/competitions/lib/competition-dates'
+import { getProgress } from '@/features/competitions/lib/competition-dates'
 
 type CompetitionProgressProps = {
 	competition: Competition
@@ -11,11 +8,7 @@ type CompetitionProgressProps = {
 export default function CompetitionProgress({
 	competition,
 }: CompetitionProgressProps) {
-	const total = daysBetween(competition.start_date, competition.end_date) + 1
-	const day = Math.min(
-		Math.max(daysBetween(competition.start_date, getToday()) + 1, 1),
-		total,
-	)
+	const { day, total } = getProgress(competition)
 
 	return (
 		<div className="flex flex-col gap-1.5">

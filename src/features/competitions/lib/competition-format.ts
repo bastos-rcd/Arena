@@ -12,6 +12,10 @@ export function formatScore(type: CompetitionType, score: number) {
 	return `${formatNumber(score)} ${TYPES[type].unit}`
 }
 
+export function formatDelta(type: CompetitionType, gap: number) {
+	return type === 'best_time' ? formatDuration(gap) : formatScore(type, gap)
+}
+
 export function formatGap(
 	type: CompetitionType,
 	score: number,
