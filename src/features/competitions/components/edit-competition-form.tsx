@@ -39,7 +39,9 @@ export default function EditCompetitionForm({
 	onDone,
 }: EditCompetitionFormProps) {
 	const today = getToday()
-	const canEditStart = getStatus(competition, today) === 'upcoming'
+	const status = getStatus(competition, today)
+	const canEditStart = status === 'upcoming'
+	const canEditEnd = status !== 'finished'
 
 	const [errors, setErrors] = useState<Errors>({})
 	const [loading, setLoading] = useState<boolean>(false)
@@ -50,7 +52,9 @@ export default function EditCompetitionForm({
 		const data = new FormData(e.currentTarget)
 		const name = String(data.get('name')).trim()
 		const description = String(data.get('description')).trim()
-		const endDate = String(data.get('endDate'))
+		const endDate = canEditEnd
+			? String(data.get('endDate'))
+			: competition.end_date
 		const startDate = canEditStart
 			? String(data.get('startDate'))
 			: competition.start_date
@@ -129,15 +133,23 @@ export default function EditCompetitionForm({
 					name="endDate"
 					type="date"
 					min={addDays(today, 1)}
+					disabled={!canEditEnd}
 					defaultValue={competition.end_date}
 				/>
 			</div>
 
-			{!canEditStart && (
+			{!canEditEnd ? (
 				<p className="text-mist text-sm">
-					La date de début ne peut plus être modifiée une fois la compétition
-					commencée.
+					Les dates ne peuvent plus être modifiées une fois la compétition
+					terminée.
 				</p>
+			) : (
+				!canEditStart && (
+					<p className="text-mist text-sm">
+						La date de début ne peut plus être modifiée une fois la compétition
+						commencée.
+					</p>
+				)
 			)}
 
 			{errors.form && (

@@ -63,3 +63,7 @@ export function getStatusLabel(period: Period, today = getToday()) {
 
 	return `Terminée le ${formatDate(period.end_date)}`
 }
+
+export function isProvisional({ end_date }: Period, today = getToday()) {
+	return daysBetween(end_date, today) === 1
+}
