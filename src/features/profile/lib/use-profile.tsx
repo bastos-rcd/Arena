@@ -4,7 +4,7 @@ import { useAuth } from '@/features/auth/lib/auth-context'
 
 import { supabase } from '@/lib/supabase'
 
-const PROFILE_COLUMNS = 'id, username, full_name, avatar_url'
+export const PROFILE_COLUMNS = 'id, username, full_name, avatar_url'
 
 export type Profile = {
 	id: string
