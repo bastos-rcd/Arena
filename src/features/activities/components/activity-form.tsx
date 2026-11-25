@@ -7,10 +7,12 @@ import Select from '@/components/ui/select'
 
 import DurationField from '@/features/activities/components/duration-field'
 import PhotoField from '@/features/activities/components/photo-field'
+import type { Activity } from '@/features/activities/lib/activity'
 import { DEFAULT_NAMES } from '@/features/activities/lib/activity-config'
 import { toSeconds } from '@/features/activities/lib/activity-duration'
 import { getActivityErrorMessage } from '@/features/activities/lib/activity-errors'
 import {
+	getActivityPhotoUrl,
 	removeActivityPhoto,
 	uploadActivityPhoto,
 } from '@/features/activities/lib/activity-photo'
@@ -42,13 +44,23 @@ type Errors = {
 	form?: string
 }
 
-export default function ActivityForm() {
+type ActivityFormProps = {
+	activity?: Activity
+	onDone?: () => void | Promise<void>
+	onCancel?: () => void
+}
+
+export default function ActivityForm({
+	activity,
+	onDone,
+	onCancel,
+}: ActivityFormProps) {
 	const navigate = useNavigate()
 	const { user } = useAuth()
 
 	const today = getToday()
 
-	const [sport, setSport] = useState<Sport | ''>('')
+	const [sport, setSport] = useState<Sport | ''>(activity?.sport ?? '')
 	const [errors, setErrors] = useState<Errors>({})
 	const [loading, setLoading] = useState<boolean>(false)
 
@@ -67,6 +79,7 @@ export default function ActivityForm() {
 		const elevation = String(data.get('elevation')).trim()
 		const steps = String(data.get('steps') ?? '').trim()
 		const photo = data.get('photo') as File
+		const hasNewPhoto = photo.size > 0
 
 		const nextErrors: Errors = {
 			sport: sport ? undefined : 'Choisir un sport',
@@ -76,7 +89,7 @@ export default function ActivityForm() {
 			duration: validateDuration(hours, minutes, seconds),
 			elevation: validateElevation(elevation),
 			steps: sport === 'walking' ? validateSteps(steps) : undefined,
-			photo: validatePhoto(photo),
+			photo: !activity || hasNewPhoto ? validatePhoto(photo) : undefined,
 		}
 
 		if (Object.values(nextErrors).some(Boolean) || !sport) {
@@ -87,17 +100,19 @@ export default function ActivityForm() {
 		setErrors({})
 		setLoading(true)
 
-		let photoPath: string
+		let photoPath = activity?.photo_path ?? ''
 
-		try {
-			photoPath = await uploadActivityPhoto(user.id, photo)
-		} catch {
-			setErrors({ form: "Impossible d'envoyer la photo, réessayer" })
-			setLoading(false)
-			return
+		if (hasNewPhoto) {
+			try {
+				photoPath = await uploadActivityPhoto(user.id, photo)
+			} catch {
+				setErrors({ form: "Impossible d'envoyer la photo, réessayer" })
+				setLoading(false)
+				return
+			}
 		}
 
-		const { error } = await supabase.from('activities').insert({
+		const values = {
 			name: name || DEFAULT_NAMES[sport],
 			sport,
 			activity_date: date,
@@ -106,16 +121,27 @@ export default function ActivityForm() {
 			elevation_gain: Number(elevation || 0),
 			steps: sport === 'walking' && steps ? Number(steps) : null,
 			photo_path: photoPath,
-		})
+		}
+
+		const { error } = activity
+			? await supabase.from('activities').update(values).eq('id', activity.id)
+			: await supabase.from('activities').insert(values)
 
 		if (error) {
-			await removeActivityPhoto(photoPath)
+			if (hasNewPhoto) await removeActivityPhoto(photoPath)
 			setErrors({ form: getActivityErrorMessage(error) })
 			setLoading(false)
 			return
 		}
 
-		navigate('/ranking', { replace: true })
+		if (!activity) {
+			navigate('/ranking', { replace: true })
+			return
+		}
+
+		if (hasNewPhoto) await removeActivityPhoto(activity.photo_path)
+
+		await onDone?.()
 	}
 
 	return (
@@ -141,6 +167,7 @@ export default function ActivityForm() {
 				name="name"
 				maxLength={60}
 				placeholder={sport ? DEFAULT_NAMES[sport] : "Nom de l'activité"}
+				defaultValue={activity?.name}
 			/>
 
 			<Field
@@ -149,7 +176,7 @@ export default function ActivityForm() {
 				name="date"
 				type="date"
 				max={today}
-				defaultValue={today}
+				defaultValue={activity?.activity_date ?? today}
 			/>
 
 			<div className="grid grid-cols-2 gap-4">
@@ -161,6 +188,7 @@ export default function ActivityForm() {
 					inputMode="decimal"
 					step="0.01"
 					min="0"
+					defaultValue={activity?.distance}
 				/>
 
 				<Field
@@ -172,10 +200,14 @@ export default function ActivityForm() {
 					step="1"
 					min="0"
 					placeholder="0"
+					defaultValue={activity?.elevation_gain || ''}
 				/>
 			</div>
 
-			<DurationField error={errors.duration} />
+			<DurationField
+				error={errors.duration}
+				defaultSeconds={activity?.duration}
+			/>
 
 			{sport === 'walking' && (
 				<Field
@@ -186,18 +218,35 @@ export default function ActivityForm() {
 					inputMode="numeric"
 					step="1"
 					min="0"
+					defaultValue={activity?.steps ?? ''}
 				/>
 			)}
 
-			<PhotoField label="Photo (preuve)" error={errors.photo} />
+			<PhotoField
+				label="Photo (preuve)"
+				error={errors.photo}
+				defaultUrl={activity && getActivityPhotoUrl(activity.photo_path)}
+			/>
 
 			{errors.form && (
 				<p className="text-error text-center text-sm">{errors.form}</p>
 			)}
 
-			<Button type="submit" loading={loading}>
-				Ajouter l'activité
-			</Button>
+			{activity ? (
+				<div className="grid grid-cols-2 gap-2.5">
+					<Button variant="secondary" disabled={loading} onClick={onCancel}>
+						Annuler
+					</Button>
+
+					<Button type="submit" loading={loading}>
+						Enregistrer
+					</Button>
+				</div>
+			) : (
+				<Button type="submit" loading={loading}>
+					Ajouter l'activité
+				</Button>
+			)}
 		</form>
 	)
 }

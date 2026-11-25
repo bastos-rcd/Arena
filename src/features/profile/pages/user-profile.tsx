@@ -3,10 +3,12 @@ import { Navigate, useParams } from 'react-router'
 import Avatar from '@/components/avatar'
 import Return from '@/components/ui/return'
 
+import ActivityList from '@/features/activities/components/activity-list'
 import { useAuth } from '@/features/auth/lib/auth-context'
 import FriendshipStatus from '@/features/friends/components/friendship-status'
 import { useFriendships } from '@/features/friends/lib/use-friendships'
 import { useUserProfile } from '@/features/profile/lib/use-user-profile'
+import PalmaresStats from '@/features/ranking/components/palmares-stats'
 
 export default function UserProfilePage() {
 	const { username = '' } = useParams()
@@ -51,6 +53,12 @@ export default function UserProfilePage() {
 				relation={byProfileId.get(profile.id)}
 				actions={{ send, accept, remove }}
 			/>
+
+			<div className="flex flex-col gap-6">
+				<PalmaresStats userId={profile.id} />
+
+				<ActivityList userId={profile.id} />
+			</div>
 		</div>
 	)
 }

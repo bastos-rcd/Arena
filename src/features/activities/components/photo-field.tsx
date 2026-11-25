@@ -4,10 +4,15 @@ import { useEffect, useState, type ChangeEvent } from 'react'
 type PhotoFieldProps = {
 	label: string
 	error?: string
+	defaultUrl?: string
 }
 
-export default function PhotoField({ label, error }: PhotoFieldProps) {
-	const [preview, setPreview] = useState<string>()
+export default function PhotoField({
+	label,
+	error,
+	defaultUrl,
+}: PhotoFieldProps) {
+	const [preview, setPreview] = useState<string | undefined>(defaultUrl)
 
 	useEffect(() => {
 		return () => {
@@ -18,7 +23,7 @@ export default function PhotoField({ label, error }: PhotoFieldProps) {
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
 		const file = e.currentTarget.files?.[0]
 
-		setPreview(file ? URL.createObjectURL(file) : undefined)
+		setPreview(file ? URL.createObjectURL(file) : defaultUrl)
 	}
 
 	return (
