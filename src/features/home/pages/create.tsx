@@ -1,5 +1,6 @@
 import { useState } from 'react'
 
+import ActivityForm from '@/features/activities/components/activity-form'
 import CompetitionForm from '@/features/competitions/components/competition-form'
 
 const TABS = [
@@ -27,11 +28,7 @@ export default function CreatePage() {
 				))}
 			</header>
 
-			{tab === 'competition' ? (
-				<CompetitionForm />
-			) : (
-				<p className="text-mist text-center">Bientôt disponible</p>
-			)}
+			{tab === 'competition' ? <CompetitionForm /> : <ActivityForm />}
 		</div>
 	)
 }
