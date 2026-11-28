@@ -6,8 +6,6 @@ import AuthLayout from '@/components/layout/auth-layout'
 import ProtectedRoute from '@/features/auth/components/protected-route'
 import PublicRoute from '@/features/auth/components/public-route'
 import AuthPage from '@/features/auth/pages/auth'
-import ForgotPasswordPage from '@/features/auth/pages/forgot-password'
-import ResetPasswordPage from '@/features/auth/pages/reset-password'
 
 import CompetitionPage from '@/features/competitions/pages/competition'
 
@@ -27,12 +25,7 @@ export default function AppRoutes() {
 			<Route element={<PublicRoute />}>
 				<Route element={<AuthLayout />}>
 					<Route path="auth" element={<AuthPage />} />
-					<Route path="forgot-password" element={<ForgotPasswordPage />} />
 				</Route>
-			</Route>
-
-			<Route element={<AuthLayout />}>
-				<Route path="reset-password" element={<ResetPasswordPage />} />
 			</Route>
 
 			<Route element={<ProtectedRoute />}>

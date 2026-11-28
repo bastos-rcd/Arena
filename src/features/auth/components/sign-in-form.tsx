@@ -2,7 +2,6 @@ import { useState, type SubmitEvent } from 'react'
 
 import Button from '@/components/ui/button'
 import Field from '@/components/ui/field'
-import Link from '@/components/ui/link'
 
 import { getAuthErrorMessage } from '@/features/auth/lib/auth-errors'
 import { validateEmail, validatePassword } from '@/features/auth/lib/validation'
@@ -69,10 +68,6 @@ export default function SignInForm() {
 				type="password"
 				autoComplete="current-password"
 			/>
-
-			<Link to="/forgot-password" variant="muted" className="self-end">
-				Mot de passe oublié ?
-			</Link>
 
 			{errors.form && (
 				<p className="text-error text-center text-sm">{errors.form}</p>

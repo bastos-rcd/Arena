@@ -24,7 +24,6 @@ type Errors = {
 export default function SignUpForm() {
 	const [errors, setErrors] = useState<Errors>({})
 	const [loading, setLoading] = useState<boolean>(false)
-	const [confirmed, setConfirmed] = useState<boolean>(false)
 
 	const handleSubmit = async (e: SubmitEvent<HTMLFormElement>) => {
 		e.preventDefault()
@@ -76,22 +75,7 @@ export default function SignUpForm() {
 		if (error) setErrors({ form: getAuthErrorMessage(error) })
 		else if (result.user?.identities?.length === 0)
 			setErrors({ email: 'Un compte existe déjà avec cet email' })
-		else if (!result.session) setConfirmed(true)
 		setLoading(false)
-	}
-
-	if (confirmed) {
-		return (
-			<>
-				<h1 className="text-center text-xl font-semibold">
-					Inscription réussie !
-				</h1>
-
-				<p className="text-mist text-center">
-					Un lien de confirmation a été envoyé à l'adresse email.
-				</p>
-			</>
-		)
 	}
 
 	return (
